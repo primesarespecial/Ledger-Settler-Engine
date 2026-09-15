@@ -1,4 +1,3 @@
-cat << 'EOF' > Dockerfile
 FROM python:3.10-slim
 RUN apt-get update && apt-get install -y --no-install-recommends \
     build-essential \
@@ -10,6 +9,3 @@ COPY . .
 RUN g++ -O3 solver.cpp -o solver
 EXPOSE 8000
 CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
-EOF
-
-docker compose up --build
