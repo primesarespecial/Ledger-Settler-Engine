@@ -250,16 +250,7 @@ int main() {
     }
 
 
-    /*
-     * Nodes:
-     *
-     * 0 = super source
-     *
-     * 1 ... N = people
-     *
-     * N + 1 = super sink
-     */
-
+   
     int source = 0;
     int sink = num_nodes + 1;
 
@@ -273,11 +264,6 @@ int main() {
         num_nodes + 1,
         0
     );
-
-
-    // ----------------------------------------------------
-    // Read balances
-    // ----------------------------------------------------
 
     long long total_balance = 0;
 
@@ -311,11 +297,6 @@ int main() {
 
         return 1;
     }
-
-
-    // ----------------------------------------------------
-    // Read person-to-person payment limits
-    // ----------------------------------------------------
 
     vector<OriginalEdge> original_edges;
 
@@ -399,21 +380,6 @@ int main() {
         });
     }
 
-
-    // ----------------------------------------------------
-    // Attach super source and super sink
-    //
-    // balance < 0:
-    // person must SEND money
-    //
-    // source -> person
-    //
-    // balance > 0:
-    // person must RECEIVE money
-    //
-    // person -> sink
-    // ----------------------------------------------------
-
     long long required_flow = 0;
 
 
@@ -445,21 +411,12 @@ int main() {
     }
 
 
-    // ----------------------------------------------------
-    // Run max-flow
-    // ----------------------------------------------------
-
     long long max_flow =
         dinic.max_flow(
             source,
             sink
         );
 
-
-    // ----------------------------------------------------
-    // If max flow cannot satisfy every positive balance,
-    // a complete settlement does not exist.
-    // ----------------------------------------------------
 
     if (max_flow != required_flow) {
 
@@ -474,10 +431,7 @@ int main() {
     }
 
 
-    // ----------------------------------------------------
-    // Extract actual payment instructions
-    // ----------------------------------------------------
-
+ 
     vector<pair<int, long long>>
         assignments;
 
@@ -510,11 +464,6 @@ int main() {
             });
         }
     }
-
-
-    // ----------------------------------------------------
-    // Output
-    // ----------------------------------------------------
 
     cout
         << "POSSIBLE "
